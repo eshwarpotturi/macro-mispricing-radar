@@ -1,0 +1,410 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Macro Mispricing Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: research note for an asset manager. Verdict first, then the controls and radar table, then the evidence. */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --ink:#15181d; --ink-2:#4b5260; --muted:#7a8190; --line:#dfe2e8;
+  --accent:#0f6e78; --rich:#d0473c; --cheap:#2a78d6; --neutral:#eceef1; --rich-soft:#fbe9e7; --cheap-soft:#e6effb;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Source Sans 3",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111316; --surface:#17191c; --ink:#eef0f3; --ink-2:#b9bfca; --muted:#8a91a0; --line:#2b2f36;
+  --accent:#4fb3bd; --rich:#e3625a; --cheap:#4a90e8; --neutral:#2a2d33; --rich-soft:#3a201e; --cheap-soft:#1b2a3f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111316; --surface:#17191c; --ink:#eef0f3; --ink-2:#b9bfca; --muted:#8a91a0; --line:#2b2f36;
+  --accent:#4fb3bd; --rich:#e3625a; --cheap:#4a90e8; --neutral:#2a2d33; --rich-soft:#3a201e; --cheap-soft:#1b2a3f; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body)}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,46px);letter-spacing:-.01em}
+h2{font-size:clamp(22px,3vw,28px)}
+h3{font-size:17px}
+p{margin:0;max-width:72ch}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:14px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+section{display:grid;gap:14px;min-width:0}
+header{display:grid;gap:12px}
+.lede{font-size:19px;color:var(--ink-2)}
+/* EIC strip */
+.eic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.eic div{padding:12px 16px;display:grid;gap:3px;border-left:1px solid var(--line);min-width:0}
+.eic div:first-child{border-left:0;background:var(--cheap-soft)}
+.eic b{font-family:var(--display);font-size:16px}
+.eic .tag{font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.eic div:first-child .tag{color:var(--accent)}
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.vbox{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:10px;align-content:start;min-width:0}
+.vbox h3{display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.dot.rich{background:var(--rich)} .dot.cheap{background:var(--cheap)} .dot.focus{background:var(--accent)}
+.vlist{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.vlist li{display:grid;gap:1px;font-size:15px}
+.vlist li span:first-child{font-weight:700}
+.vlist li span:last-child{color:var(--ink-2);font-size:13px}
+/* controls */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:12px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.controls .lbl{font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:84px}
+.controls button{font:600 13px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 13px;cursor:pointer}
+.controls button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+button:focus-visible,.row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sigs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.sig{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;text-align:left;font:14px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px;cursor:pointer}
+.sig .box{grid-row:span 3;width:18px;height:18px;border:2px solid var(--muted);border-radius:4px;margin-top:2px;display:grid;place-items:center;font-size:12px;color:var(--surface)}
+.sig[aria-pressed="true"]{border-color:var(--accent);background:var(--surface)}
+.sig[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent)}
+.sig[aria-pressed="true"] .box::after{content:"✓"}
+.sig b{font-weight:700}
+.sig small{color:var(--ink-2);font-size:12.5px;line-height:1.35}
+.sig .rec{font:600 11.5px var(--mono);color:var(--muted)}
+.sig[disabled]{opacity:.45;cursor:not-allowed}
+/* radar table */
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+#tbl{min-width:900px}
+th{font:600 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.row{cursor:pointer} tr.row:hover td{background:var(--neutral)}
+tr.row.focus td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+td.r,th.r{text-align:right}
+.cname{font-weight:700;white-space:nowrap} .cname small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 12px var(--body);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill.rich{background:var(--rich-soft);color:var(--ink)} .pill.rich::before{content:"▲";color:var(--rich);font-size:10px}
+.pill.cheap{background:var(--cheap-soft);color:var(--ink)} .pill.cheap::before{content:"▼";color:var(--cheap);font-size:10px}
+.pill.none{background:var(--neutral);color:var(--ink-2)} .pill.none::before{content:"–";color:var(--muted)}
+.dv{display:grid;grid-template-columns:1fr 2px 1fr;align-items:center;width:70px;height:14px;flex:none}
+.dv .mid{background:var(--muted);height:100%;opacity:.6}
+.dv .l{display:flex;justify-content:flex-end} .dv i{display:block;height:10px}
+.dv .l i{border-radius:4px 0 0 4px} .dv .r i{border-radius:0 4px 4px 0}
+.cell{display:flex;align-items:center;gap:8px}
+.cell .num{min-width:50px;text-align:right;font-size:13px}
+.story{color:var(--ink-2);font-size:13px}
+tr.detail td{background:var(--bg);padding:16px 18px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.dgrid > div{display:grid;gap:8px;align-content:start;min-width:0}
+.mw{overflow-x:auto}
+.mini{font-size:13px}
+.mini th,.mini td{padding:5px 6px}
+.mini th{font-size:10px}
+.note{font-size:13px;color:var(--ink-2)}
+.flag{color:var(--rich);font-weight:600}
+/* charts */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;position:relative}
+.chart svg{display:block;width:100%;height:auto}
+.chart text{fill:var(--muted);font:11px var(--mono)}
+.chart .lab{fill:var(--ink-2);font-weight:600}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:13px var(--body);padding:7px 10px;border-radius:6px;max-width:270px;opacity:0;transition:opacity .12s;z-index:2}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.fact{border-left:3px solid var(--line);padding-left:12px;display:grid;gap:2px}
+.fact b{font:600 22px var(--mono)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+summary{cursor:pointer;font-weight:700}
+details ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px;max-width:84ch}
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+a{color:var(--accent)}
+@media (max-width:640px){.lede{font-size:17px}.eic{grid-template-columns:1fr}.eic div{border-left:0;border-top:1px solid var(--line)}.eic div:first-child{border-top:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Top-down idea screen · 29 equity markets · as of <span id="asof"></span></span>
+    <h1>Macro Mispricing Radar</h1>
+    <p class="lede">Forecasters tell markets how each economy will do, and markets price that in. When an economy then delivers less but its stock market does not come down, the market has not caught up with reality. This page finds those markets, and the reverse, so an asset manager knows where to look first for short and long ideas.</p>
+    <div class="eic" aria-label="Where this sits in an Economy, Industry, Company process">
+      <div><span class="tag">Step 1 · this page</span><b>Economy</b><span class="small">Which country markets look over- or under-priced</span></div>
+      <div><span class="tag">Step 2 · Broker Track Record</span><b>Industry</b><span class="small">Which sectors inside India and Singapore, built up from broker targets. <a href="https://eshwarpotturi.github.io/broker-track-record/">Open</a></span></div>
+      <div><span class="tag">Step 3 · Broker Track Record</span><b>Company</b><span class="small">Which stocks, and which broker to trust for each. <a href="https://eshwarpotturi.github.io/broker-track-record/">Open</a></span></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Where to look first</h2>
+    <p class="small muted" id="vsub"></p>
+    <div class="verdict" id="verdict"></div>
+  </section>
+
+  <section id="radar">
+    <h2>Build your own view</h2>
+    <p>Every desk trusts different signals. Pick the horizon and the signals you believe in; the verdicts, the table and the track record below all update. Each signal shows how often it alone would have worked since 2018.</p>
+    <div class="panel">
+      <div class="controls" id="hz"><span class="lbl">Horizon</span>
+        <button data-h="long" aria-pressed="true">3–5 years · asset managers</button>
+        <button data-h="short" aria-pressed="false">Next year · traders</button>
+      </div>
+      <div class="sigs" id="sigs"></div>
+      <div class="controls" id="filter"><span class="lbl">Show</span>
+        <button data-f="all" aria-pressed="true">All 29</button>
+        <button data-f="em" aria-pressed="false">Emerging</button>
+        <button data-f="dm" aria-pressed="false">Developed</button>
+        <button data-f="focus" aria-pressed="false">India and Singapore</button>
+      </div>
+    </div>
+    <p class="small"><span class="pill rich">pushes toward overpriced</span> <span class="pill cheap">pushes toward underpriced</span> <span class="muted">Click a market for forecasts from the IMF, OECD and World Bank, market cap / GDP, and each forecaster's track record.</span></p>
+    <div class="scroll"><table id="tbl"></table></div>
+  </section>
+
+  <section>
+    <h2>Has this view worked before?</h2>
+    <p id="btintro"></p>
+    <div class="facts" id="btfacts"></div>
+    <div class="chart" id="btchart"><div class="tip" id="tip"></div></div>
+    <p class="note" id="btread"></p>
+  </section>
+
+  <section>
+    <h2>How forecasts go wrong</h2>
+    <div class="two">
+      <div class="chart" id="hchart"><h3 style="margin-bottom:6px">The further out, the rosier</h3><p class="note" style="margin-bottom:8px">IMF GDP growth forecast minus what happened, average over 29 markets since 2008 (2020–21 excluded). Positive means too rosy.</p></div>
+      <div class="chart" id="h2hbox"><h3 style="margin-bottom:6px">Which forecaster to trust next year</h3><p class="note" style="margin-bottom:8px">One-year-ahead GDP calls for 2024 and 2025, average miss in percentage points. Each covers different countries; the per-country view is in the table.</p><div class="facts" id="h2h"></div></div>
+    </div>
+    <p class="note" id="sgnote"></p>
+  </section>
+
+  <details>
+    <summary>Method, sources and limits</summary>
+    <ul>
+      <li><b>Forecasts.</b> IMF World Economic Outlook, every release from April 2008 to April 2026 (GDP growth, inflation, government balance). OECD Economic Outlook, November 2023 to June 2026 (adds short and long interest rates). World Bank Global Economic Prospects, June 2024 and June 2026. The OECD and World Bank do not forecast Singapore or Hong Kong, so those two rely on the IMF.</li>
+      <li><b>What happened.</b> The first figure the IMF published after each year ended, so later revisions do not rewrite history. 2020 and 2021 are left out of forecast errors because no one could foresee the pandemic.</li>
+      <li><b>Correcting forecasts.</b> Each forecaster's next-year number is adjusted by its own average past error for that country, trusted in proportion to how much history there is (n ÷ (n + 4)). The IMF has about 15 years per country; the OECD 2 and the World Bank 1, so their corrections are small.</li>
+      <li><b>Market.</b> World Bank / S&amp;P equity index annual change in USD against IMF nominal GDP in USD; and World Bank market cap as % of GDP against its own 10-year median. Market cap / GDP points that jump over 50% in a year while the index moved under 25% are treated as data breaks and skipped: <span id="flags"></span>.</li>
+      <li><b>Scoring.</b> Each signal is ranked against the other markets (z-score). A market's score is the average of the signals you switch on. Roughly the top and bottom fifth are called over- and under-priced.</li>
+      <li><b>Track record.</b> The same calculation at every April since 2012, using only what was known then, held for 3 years (or 1 year for the next-year view), USD index returns.</li>
+      <li><b>Not a buy or sell list.</b> It is the economy step of a top-down process. The track record shows when the rule worked and when it did not.</li>
+    </ul>
+  </details>
+  <footer>Built from public IMF, OECD and World Bank data. Not investment advice. Companion to the <a href="https://eshwarpotturi.github.io/fed-claim-catalog/">Fed Claim Catalog</a>.</footer>
+</div>
+
+<script>
+const D = /*DATA*/;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sg = x => x > 0 ? "+" : x < 0 ? "−" : "";
+const pct = (x, d = 1) => x == null ? "–" : sg(x) + Math.abs(x * 100).toFixed(d) + "%";
+const pp = (x, d = 1) => x == null ? "–" : sg(x) + Math.abs(x).toFixed(d);
+const f1 = x => x == null ? "–" : x.toFixed(1);
+const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
+const FOCUS = new Set(["IND", "SGP"]);
+const S = D.signals, DEF = S.defs;
+const MK = Object.fromEntries(D.markets.map(m => [m.code, m]));
+$("asof").textContent = new Date(D.as_of + "T00:00:00").toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"});
+$("flags").textContent = Object.entries(S.mcap_flags).map(([c, y]) => `${MK[c].name} ${y.join(", ")}`).join("; ");
+
+// How each signal's raw value reads in the table
+const FMT = {
+  missed: v => pct(-v), ran: v => pct(v, 0), mcap: v => pct(v, 0),
+  rosy_gdp: v => pp(v, 2) + " pts", rosy_inf: v => pp(v, 2) + " pts", rosy_fis: v => pp(v, 2) + " pts", rates_up: v => pp(v, 2) + " pts",
+};
+const HEAD = {
+  missed: "Growth vs forecast<br>2022–25", ran: "Stocks vs economy<br>2022–25, USD", mcap: "Mkt cap / GDP<br>vs 10-yr median",
+  rosy_gdp: {long: "Growth forecasts<br>too rosy, 3–5 yr", short: "Expected growth<br>disappointment 2027"},
+  rosy_inf: "Inflation forecast<br>too low", rosy_fis: "Deficit forecast<br>too rosy", rates_up: "Short rate change<br>2027 (OECD)",
+};
+const STORY = {
+  "ignored a miss": "Economy fell short; stocks kept rising", "ignored a beat": "Economy beat forecasts; stocks lagged",
+  "priced the miss": "Economy fell short; stocks adjusted", "priced the beat": "Economy beat; stocks followed",
+  "delivered as forecast": "Economy roughly as forecast",
+};
+
+let hz = "long", filt = "all", open = null;
+const on = {long: new Set(["missed", "ran", "rosy_gdp"]), short: new Set(["missed", "ran", "rosy_gdp"])};
+
+// Score markets from a {key: {country: z}} map and the selected keys
+function scoreFrom(zmaps, keys, countries) {
+  const need = Math.min(2, keys.length), sc = {};
+  countries.forEach(c => { const v = keys.map(k => zmaps[k]?.[c]).filter(x => x != null); if (v.length >= need && v.length) sc[c] = mean(v); });
+  return sc;
+}
+function backtest(h, keys) {
+  const H = S.horizons[h], ks = keys.filter(k => k !== "rates_up"), out = [];
+  if (!ks.length) return out;
+  for (const [T, z] of Object.entries(H.hist)) {
+    const R = H.ret[T], sc = scoreFrom(z, ks, Object.keys(R));
+    const rows = Object.keys(sc).sort((a, b) => sc[a] - sc[b]);
+    if (rows.length < 12) continue;
+    const k = Math.floor(rows.length / 3), cheap = rows.slice(0, k), rich = rows.slice(-k);
+    const m = rs => mean(rs.map(c => R[c]));
+    out.push({year: +T, cheap: m(cheap) * 100, rich: m(rich) * 100, spread: (m(cheap) - m(rich)) * 100, richNames: rich, cheapNames: cheap});
+  }
+  return out;
+}
+const rec = (h, k) => { const b = backtest(h, [k]).filter(x => x.year >= 2018); return b.length ? `${b.filter(x => x.spread > 0).length} of ${b.length} since 2018` : "no history to test"; };
+
+function current() {
+  const H = S.horizons[hz], keys = [...on[hz]].filter(k => H.keys.includes(k));
+  const sc = scoreFrom(H.today_z, keys, D.markets.map(m => m.code));
+  const vals = Object.values(sc), mu = vals.length ? mean(vals) : 0, sd = vals.length ? Math.sqrt(mean(vals.map(v => (v - mu) ** 2))) || 1 : 1;
+  const list = Object.keys(sc).map(c => { const z = (sc[c] - mu) / sd;
+    return {c, m: MK[c], score: z, call: z >= 0.8 ? "rich" : z <= -0.8 ? "cheap" : "none"}; }).sort((a, b) => b.score - a.score);
+  list.forEach((x, i) => x.rank = i + 1);
+  return {H, keys, list};
+}
+
+function why(x, keys) {
+  const H = S.horizons[hz], z = H.today_z, raw = H.today_raw, parts = [];
+  const strong = keys.map(k => [k, z[k]?.[x.c]]).filter(([, v]) => v != null && Math.abs(v) >= 0.7)
+    .sort((a, b) => (x.call === "cheap" ? a[1] - b[1] : b[1] - a[1])).slice(0, 2);
+  const a1 = v => Math.abs(v * 100).toFixed(1) + "%", a0 = v => Math.abs(v * 100).toFixed(0) + "%", ap = (v, d = 1) => Math.abs(v).toFixed(d);
+  const TXT = {
+    missed: v => v > 0 ? `grew ${a1(v)} less than forecast` : `grew ${a1(v)} more than forecast`,
+    ran: v => v > 0 ? `stocks outran the economy by ${a0(v)}` : `stocks lagged the economy by ${a0(v)}`,
+    mcap: v => `market cap / GDP ${v >= 0 ? a0(v) + " above" : a0(v) + " below"} its 10-yr median`,
+    rosy_gdp: v => hz === "long" ? (v > 0 ? `growth forecasts usually ${ap(v)} pts too high` : `growth forecasts usually ${ap(v)} pts too low`) : (v > 0 ? `2027 consensus likely ${ap(v, 2)} pts too high` : `2027 consensus likely ${ap(v, 2)} pts too low`),
+    rosy_inf: v => v > 0 ? `inflation usually above forecast` : `inflation usually below forecast`,
+    rosy_fis: v => v > 0 ? `deficits usually worse than forecast` : `deficits usually better than forecast`,
+    rates_up: v => v > 0 ? `rates seen rising ${ap(v, 2)} pts` : `rates seen falling ${ap(v, 2)} pts`,
+  };
+  strong.forEach(([k]) => { const v = raw[k][x.c]; if (v != null) parts.push(TXT[k](v)); });
+  return parts.join("; ");
+}
+
+function verdict(st) {
+  const rich = st.list.filter(x => x.call === "rich"), cheap = st.list.filter(x => x.call === "cheap").reverse();
+  const li = x => `<li><span>${esc(x.m.name)}</span><span>${esc(why(x, st.keys)) || "several signals point the same way"}</span></li>`;
+  const foc = c => { const x = st.list.find(y => y.c === c), m = MK[c], cs = D.consensus[c];
+    if (!x) return "";
+    const lab = x.call === "rich" ? "looks overpriced" : x.call === "cheap" ? "looks underpriced" : "no strong signal";
+    const lt = hz === "long" ? `IMF expects ${f1(m.imf_gdp_35)}% a year for 2029–31; corrected for its usual error, ${f1(m.adj_gdp_35)}%.`
+      : `2027 consensus ${f1(cs.consensus)}% (${Object.keys(cs.by).join(", ")}); corrected, ${f1(cs.corrected)}%.`;
+    return `<li><span>${esc(m.name)}: ${lab} (#${x.rank} of ${st.list.length})</span><span>${STORY[m.story]}. ${lt}${why(x, st.keys) ? " Main drivers: " + esc(why(x, st.keys)) + "." : ""}</span></li>`; };
+  $("vsub").textContent = `${S.horizons[hz].label} view, using ${st.keys.length} signal${st.keys.length === 1 ? "" : "s"}: ${st.keys.map(k => DEF[k].label.toLowerCase()).join(", ")}.`;
+  $("verdict").innerHTML = st.keys.length ? `
+    <div class="vbox"><h3><span class="dot rich"></span>Looks overpriced (${rich.length})</h3><p class="small muted">Look here first for short ideas.</p><ul class="vlist">${rich.map(li).join("") || "<li><span>None</span></li>"}</ul></div>
+    <div class="vbox"><h3><span class="dot cheap"></span>Looks underpriced (${cheap.length})</h3><p class="small muted">Look here first for long ideas.</p><ul class="vlist">${cheap.map(li).join("") || "<li><span>None</span></li>"}</ul></div>
+    <div class="vbox"><h3><span class="dot focus"></span>India and Singapore</h3><ul class="vlist" style="gap:12px">${foc("IND")}${foc("SGP")}</ul></div>`
+    : `<div class="vbox"><h3>Switch on at least one signal</h3></div>`;
+}
+
+function sigs() {
+  const H = S.horizons[hz];
+  $("sigs").innerHTML = H.keys.map(k => `<button class="sig" data-k="${k}" aria-pressed="${on[hz].has(k)}"><span class="box"></span><b>${esc(DEF[k].label)}${DEF[k].core ? ' <span class="muted" style="font-weight:400">· Mayuresh\'s rule</span>' : ""}</b><small>${esc(DEF[k].desc)}</small><span class="rec">Alone: ${rec(hz, k)}</span></button>`).join("");
+}
+
+function dv(z) {
+  const w = Math.min(100, Math.round(100 * Math.abs(z) / 2.5));
+  const bar = `<i style="width:${w}%;background:var(${z >= 0 ? "--rich" : "--cheap"})"></i>`;
+  return `<div class="dv" aria-hidden="true"><div class="l">${z < 0 ? bar : ""}</div><div class="mid"></div><div class="r">${z >= 0 ? bar : ""}</div></div>`;
+}
+
+function detail(x, ncol) {
+  const m = x.m, cs = D.consensus[x.c], w = m.window, prof = D.h_profile[x.c];
+  const cons = cs ? Object.entries(cs.by).map(([k, r]) => `<tr><td>${k}</td><td class="r num">${f1(r.forecast)}</td><td class="r num">${pp(r.usual_error, 2)}</td><td class="r num">${r.n}</td><td class="r num">${f1(r.corrected)}</td></tr>`).join("") : "";
+  const more = Object.entries(m.next_year_more).map(([k, v]) => `<tr><td>${k}</td><td class="r num">${v == null ? "<span class='muted'>–</span>" : f1(v) + "%"}</td></tr>`).join("");
+  const tr = [["GDP growth", "gdp"], ["Inflation (too low)", "inflation"], ["Govt balance", "fiscal"]].map(([l, k]) =>
+    `<tr><td>${l}</td><td class="r num">${pp(m[`rosy_${k}_1y`], 2)}</td><td class="r num">${pp(m[`rosy_${k}_35`], 2)}</td></tr>`).join("");
+  const flags = new Set(S.mcap_flags[x.c] || []);
+  const mc = Object.entries(m.mcap_gdp).filter(([y]) => +y >= 2016).map(([y, v]) => `<td class="r num${flags.has(y) ? " flag" : ""}" title="${flags.has(y) ? "Data break, skipped" : ""}">${v}%${flags.has(y) ? "*" : ""}</td>`);
+  const mcy = Object.keys(m.mcap_gdp).filter(y => +y >= 2016).map(y => `<th class="r">${y}</th>`).join("");
+  const hp = [0, 1, 2, 3, 4, 5].map(h => `<td class="r num">${pp(prof[h], 2)}</td>`).join("");
+  return `<tr class="detail"><td colspan="${ncol}"><div class="dgrid">
+    <div><h3>2022–2025: forecast vs reality</h3><div class="mw"><table class="mini"><tbody>
+      <tr><td>Growth forecast (IMF, Apr 2022)</td><td class="r num">${pct(w.forecast_growth)}</td></tr>
+      <tr><td>Growth delivered</td><td class="r num">${pct(w.actual_growth)}</td></tr>
+      <tr><td>Stock index, USD</td><td class="r num">${pct(w.price_change)}</td></tr>
+      <tr><td>GDP in USD</td><td class="r num">${pct(w.usd_gdp_change)}</td></tr>
+      <tr><td>Stocks vs economy</td><td class="r num">${pct(w.ran_ahead)}</td></tr></tbody></table></div>
+      <p class="note">${STORY[m.story]}.</p></div>
+    <div><h3>2027 growth: what the world thinks</h3>${cs ? `<div class="mw"><table class="mini"><thead><tr><th></th><th class="r">Forecast</th><th class="r">Usual error</th><th class="r">Yrs</th><th class="r">Corrected</th></tr></thead><tbody>${cons}
+      <tr><td><b>Consensus</b></td><td class="r num"><b>${f1(cs.consensus)}</b></td><td></td><td></td><td class="r num"><b>${f1(cs.corrected)}</b></td></tr></tbody></table></div>
+      <p class="note">Percent growth. "Usual error" is how far above reality this forecaster's one-year call for ${esc(m.name)} has landed, shrunk when history is short.</p>` : ""}
+      <h3 style="margin-top:6px">Other 2027 forecasts</h3><div class="mw"><table class="mini"><tbody>${more}</tbody></table></div></div>
+    <div><h3>How wrong the IMF usually is here</h3><div class="mw"><table class="mini"><thead><tr><th></th><th class="r">1 yr</th><th class="r">3–5 yrs</th></tr></thead><tbody>${tr}</tbody></table></div>
+      <p class="note">Points too rosy on average since 2008. By distance, GDP:</p>
+      <div class="mw"><table class="mini"><thead><tr>${["This yr", "+1", "+2", "+3", "+4", "+5"].map(h => `<th class="r">${h}</th>`).join("")}</tr></thead><tbody><tr>${hp}</tr></tbody></table></div>
+      <p class="note">IMF 2029–31: <b class="num">${f1(m.imf_gdp_35)}%</b> a year; corrected: <b class="num">${f1(m.adj_gdp_35)}%</b>.</p></div>
+    <div><h3>Market cap / GDP</h3><div class="mw"><table class="mini"><thead><tr>${mcy}</tr></thead><tbody><tr>${mc.join("")}</tr></tbody></table></div>
+      <p class="note">World Bank. ${flags.size ? "* Data break (jump not matched by the index), skipped in the score." : ""} ${m.h2h.length ? "" : ""}</p>
+      ${m.h2h.length ? `<h3 style="margin-top:6px">Who called ${esc(m.name)} best</h3><div class="mw"><table class="mini"><thead><tr><th>Year</th><th class="r">Actual</th><th class="r">IMF</th><th class="r">OECD</th><th class="r">WB</th></tr></thead><tbody>${m.h2h.map(r => `<tr><td class="num">${r.year}</td><td class="r num">${f1(r.actual)}</td>${["IMF", "OECD", "World Bank"].map(k => `<td class="r num">${r[k] == null ? "–" : f1(r[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}</div>
+  </div></td></tr>`;
+}
+
+function table(st) {
+  const H = st.H, keys = st.keys, ncol = keys.length + 4;
+  const list = st.list.filter(x => filt === "all" || (filt === "em" ? x.m.em : filt === "dm" ? !x.m.em : FOCUS.has(x.c)));
+  const head = k => typeof HEAD[k] === "string" ? HEAD[k] : HEAD[k][hz];
+  $("tbl").innerHTML = `<thead><tr><th>Market</th>${keys.map(k => `<th>${head(k)}</th>`).join("")}<th class="r">Score</th><th>Verdict</th><th>2022–25 story</th></tr></thead><tbody>` +
+    list.map(x => `<tr class="row${FOCUS.has(x.c) ? " focus" : ""}" tabindex="0" data-c="${x.c}" aria-expanded="${open === x.c}">
+      <td class="cname">${esc(x.m.name)}<small>#${x.rank} · ${x.m.em ? "Emerging" : "Developed"}</small></td>
+      ${keys.map(k => { const v = H.today_raw[k][x.c], z = H.today_z[k]?.[x.c];
+        return `<td>${v == null ? '<span class="muted small">no data</span>' : `<div class="cell"><span class="num">${FMT[k](v)}</span>${z != null ? dv(z) : ""}</div>`}</td>`; }).join("")}
+      <td class="r num">${pp(x.score, 2)}</td>
+      <td><span class="pill ${x.call}">${x.call === "rich" ? "Overpriced" : x.call === "cheap" ? "Underpriced" : "No strong signal"}</span></td>
+      <td class="story">${STORY[x.m.story]}</td></tr>` + (open === x.c ? detail(x, ncol) : "")).join("") + `</tbody>`;
+}
+
+function btchart(b) {
+  const box = $("btchart"); box.querySelector("svg")?.remove();
+  const tested = [...on[hz]].filter(k => k !== "rates_up");
+  const recent = b.filter(x => x.year >= 2018), early = b.filter(x => x.year < 2018);
+  $("btintro").textContent = `The same view applied every April from ${b[0]?.year ?? "–"} to ${b.at(-1)?.year ?? "–"}, using only what was known then. Each bar is how much the "looks underpriced" third of markets beat the "looks overpriced" third over the next ${S.horizons[hz].hold === 3 ? "three years" : "year"} (USD index returns).${on[hz].has("rates_up") ? " The rate signal has no history, so it is left out here." : ""}`;
+  if (!b.length) { $("btfacts").innerHTML = ""; $("btread").textContent = tested.length ? "" : "Switch on a signal with history to see its track record."; return; }
+  const avg = a => a.length ? mean(a.map(x => x.spread)) : 0;
+  $("btfacts").innerHTML = [
+    [`${b.filter(x => x.spread > 0).length} of ${b.length}`, "years it worked"],
+    [`${recent.filter(x => x.spread > 0).length} of ${recent.length}`, "years it worked since 2018"],
+    [`${pp(avg(recent))} pts`, `average edge since 2018, over ${S.horizons[hz].hold === 3 ? "3 years" : "1 year"}`],
+    [`${early.filter(x => x.spread > 0).length} of ${early.length}`, "years it worked before 2018"],
+  ].map(([n, l]) => `<div class="fact"><b>${n}</b><span class="small muted">${l}</span></div>`).join("");
+  $("btread").textContent = hz === "long"
+    ? "Read it as a regime, not a law. Before 2018 money chased the markets with the rosiest stories and most rules lost; since 2018 those markets have tended to disappoint. Of the single signals, rosy deficit and growth forecasts have the steadiest record. Use the result to choose where to dig, then go down to industries and companies."
+    : "One-year results swing year to year, as expected: over one year markets move on flows and sentiment more than on macro surprises. This is why the 3–5 year view is the main one for asset managers.";
+  const W = 760, Ht = 270, padL = 44, padR = 12, padT = 18, padB = 34;
+  const max = Math.max(10, Math.ceil(Math.max(...b.map(x => Math.abs(x.spread))) / 10) * 10);
+  const y = v => padT + (Ht - padT - padB) * (max - v) / (2 * max), bw = (W - padL - padR) / b.length;
+  const step = max > 40 ? 20 : 10;
+  let s = `<svg viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Edge of the underpriced over the overpriced group by start year">`;
+  for (let v = -max; v <= max; v += step) s += `<line x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="${v === 0 ? 1.5 : 1}"/><text x="${padL - 6}" y="${y(v) + 4}" text-anchor="end">${v > 0 ? "+" : ""}${v}</text>`;
+  b.forEach((r, i) => {
+    const x = padL + i * bw + bw * .2, w = bw * .6, top = Math.min(y(r.spread), y(0)), h = Math.abs(y(r.spread) - y(0));
+    s += `<rect x="${x}" y="${top}" width="${w}" height="${Math.max(h, 1)}" rx="3" fill="var(${r.spread >= 0 ? "--cheap" : "--rich"})"/>`;
+    s += `<text class="lab" x="${x + w / 2}" y="${r.spread >= 0 ? top - 5 : top + h + 13}" text-anchor="middle">${r.spread > 0 ? "+" : ""}${r.spread.toFixed(0)}</text>`;
+    s += `<text x="${x + w / 2}" y="${Ht - 12}" text-anchor="middle">${r.year}</text>`;
+    s += `<rect class="hit" data-i="${i}" x="${padL + i * bw}" y="${padT}" width="${bw}" height="${Ht - padT - padB}" fill="transparent"/>`;
+  });
+  s += `<text x="${padL}" y="${padT - 6}">pts, underpriced minus overpriced</text></svg>`;
+  box.insertAdjacentHTML("beforeend", s);
+  box.onmousemove = e => { const r = e.target.closest(".hit"), tip = $("tip"); if (!r) { tip.style.opacity = 0; return; }
+    const x = b[+r.dataset.i], bb = box.getBoundingClientRect();
+    tip.innerHTML = `<b>April ${x.year}, held ${S.horizons[hz].hold === 3 ? "3 years" : "1 year"}</b><br>Looks underpriced: ${pp(x.cheap)}%<br>Looks overpriced: ${pp(x.rich)}%<br><span style="opacity:.85">Flagged overpriced: ${x.richNames.map(c => MK[c].name).join(", ")}</span>`;
+    tip.style.left = Math.max(0, Math.min(e.clientX - bb.left + 12, bb.width - 280)) + "px"; tip.style.top = (e.clientY - bb.top + 12) + "px"; tip.style.opacity = 1; };
+  box.onmouseleave = () => $("tip").style.opacity = 0;
+}
+
+function render() { const st = current(); verdict(st); table(st); btchart(backtest(hz, st.keys)); }
+
+$("hz").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; hz = b.dataset.h; open = null;
+  $("hz").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); sigs(); render(); });
+$("sigs").addEventListener("click", e => { const b = e.target.closest(".sig"); if (!b) return; const k = b.dataset.k;
+  on[hz].has(k) ? on[hz].delete(k) : on[hz].add(k); b.setAttribute("aria-pressed", on[hz].has(k)); render(); });
+$("filter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; filt = b.dataset.f;
+  $("filter").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); });
+$("tbl").addEventListener("click", e => { const r = e.target.closest("tr.row"); if (!r) return; open = open === r.dataset.c ? null : r.dataset.c; table(current()); });
+$("tbl").addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.matches("tr.row")) { e.preventDefault(); const c = e.target.dataset.c; open = open === c ? null : c; table(current()); document.querySelector(`tr.row[data-c="${c}"]`)?.focus(); } });
+sigs(); render();
+
+// Error by distance (static)
+(function () {
+  const P = D.pooled_gdp_rosy_by_h, hs = [0, 1, 2, 3, 4, 5], W = 520, Ht = 200, padL = 40, padB = 30, padT = 14;
+  const max = 1, y = v => padT + (Ht - padT - padB) * (max - v) / (max + 0.25), bw = (W - padL - 10) / hs.length;
+  let s = `<svg viewBox="0 0 ${W} ${Ht}" role="img" aria-label="IMF GDP forecast error by distance">`;
+  [-0.25, 0, 0.25, 0.5, 0.75, 1].forEach(v => s += `<line x1="${padL}" x2="${W - 10}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="${v === 0 ? 1.5 : 1}"/><text x="${padL - 6}" y="${y(v) + 4}" text-anchor="end">${v > 0 ? "+" : ""}${v}</text>`);
+  hs.forEach((h, i) => { const v = P[h], x = padL + i * bw + bw * .22, w = bw * .56, top = Math.min(y(v), y(0)), hh = Math.abs(y(v) - y(0));
+    s += `<rect x="${x}" y="${top}" width="${w}" height="${Math.max(hh, 1)}" rx="3" fill="var(${v >= 0 ? "--rich" : "--cheap"})"/>`;
+    s += `<text class="lab" x="${x + w / 2}" y="${v >= 0 ? top - 5 : top + hh + 13}" text-anchor="middle">${pp(v, 2)}</text>`;
+    s += `<text x="${x + w / 2}" y="${Ht - 10}" text-anchor="middle">${h === 0 ? "This yr" : "+" + h + " yr"}</text>`; });
+  $("hchart").insertAdjacentHTML("beforeend", s + `</svg>`);
+  const sgp = D.h_profile.SGP;
+  $("sgnote").innerHTML = `For the current year the IMF is about right or slightly cautious (${pp(P[0], 2)} pts); five years out it is ${pp(P[5], 2)} pts too rosy. <b>Singapore</b> is the clearest case of the reverse near term: it beat the IMF's current-year call by ${pp(-sgp[0], 1)} pts on average, yet the IMF's 3–5 year calls for it ran about ${pp((sgp[3] + sgp[4] + sgp[5]) / 3, 1)} pts too high.`;
+  $("h2h").innerHTML = Object.entries(D.h2h_summary).map(([k, v]) => `<div class="fact"><b>${v.avg_miss.toFixed(2)}</b><span class="small muted">${k} · ${v.n} calls</span></div>`).join("");
+})();
+</script>
+
+</body></html>
