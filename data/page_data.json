@@ -27,6 +27,10 @@
   "World Bank": {
    "n": 16,
    "avg_miss": 0.66
+  },
+  "EC": {
+   "n": 16,
+   "avg_miss": 0.55
   }
  },
  "backtest": [
@@ -396,7 +400,8 @@
    "next_year": {
     "IMF": 2.1,
     "OECD": 1.79896206247722,
-    "World Bank": 2.1
+    "World Bank": 2.1,
+    "EC": 2.15
    },
    "next_year_more": {
     "inflation (IMF)": 2.1,
@@ -410,14 +415,16 @@
      "actual": 2.8,
      "IMF": 1.063,
      "OECD": 1.54444417794814,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.432
     },
     {
      "year": 2025,
      "actual": 2.1,
      "IMF": 1.881,
      "OECD": 2.37550896670398,
-     "World Bank": 1.8
+     "World Bank": 1.8,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -439,7 +446,9 @@
    "score": -0.41,
    "rank": 24,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": -0.36,
+   "n_gdp_ec": 9
   },
   {
    "code": "CAN",
@@ -467,7 +476,8 @@
    "next_year": {
     "IMF": 1.9,
     "OECD": 1.6865854732046,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 1.5
    },
    "next_year_more": {
     "inflation (IMF)": 2.1,
@@ -481,14 +491,16 @@
      "actual": 1.53,
      "IMF": 1.498,
      "OECD": 0.815776761211066,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.2
     },
     {
      "year": 2025,
      "actual": 1.7,
      "IMF": 2.308,
      "OECD": 1.95315819699111,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -510,7 +522,9 @@
    "score": 0.06,
    "rank": 11,
    "story": "ignored a miss",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.12,
+   "n_gdp_ec": 9
   },
   {
    "code": "GBR",
@@ -538,7 +552,8 @@
    "next_year": {
     "IMF": 1.3,
     "OECD": 1.05867630943136,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 1.36
    },
    "next_year_more": {
     "inflation (IMF)": 2.4,
@@ -552,14 +567,16 @@
      "actual": 1.1,
      "IMF": 0.953,
      "OECD": 0.679537484600063,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 0.479
     },
     {
      "year": 2025,
      "actual": 1.3,
      "IMF": 1.54,
      "OECD": 1.68595890154981,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -572,7 +589,9 @@
    "score": -0.0,
    "rank": 12,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": -0.35,
+   "n_gdp_ec": 9
   },
   {
    "code": "DEU",
@@ -600,7 +619,8 @@
    "next_year": {
     "IMF": 1.2,
     "OECD": 1.11975165649274,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 1.24
    },
    "next_year_more": {
     "inflation (IMF)": 2.3,
@@ -614,14 +634,16 @@
      "actual": -0.23,
      "IMF": 1.098,
      "OECD": 0.638617472745391,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 0.805
     },
     {
      "year": 2025,
      "actual": 0.2,
      "IMF": 1.326,
      "OECD": 0.719482889115838,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -643,7 +665,9 @@
    "score": 0.64,
    "rank": 5,
    "story": "ignored a miss",
-   "call": "Looks overpriced"
+   "call": "Looks overpriced",
+   "rosy_gdp_1y_ec": 0.26,
+   "n_gdp_ec": 9
   },
   {
    "code": "FRA",
@@ -671,7 +695,8 @@
    "next_year": {
     "IMF": 0.9,
     "OECD": 0.815280016142864,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 1.09
    },
    "next_year_more": {
     "inflation (IMF)": 1.7,
@@ -685,14 +710,16 @@
      "actual": 1.07,
      "IMF": 1.254,
      "OECD": 0.751174011486974,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.247
     },
     {
      "year": 2025,
      "actual": 0.9,
      "IMF": 1.442,
      "OECD": 0.897490283417014,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -707,7 +734,9 @@
    "score": -0.03,
    "rank": 15,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.07,
+   "n_gdp_ec": 9
   },
   {
    "code": "ITA",
@@ -735,7 +764,8 @@
    "next_year": {
     "IMF": 0.5,
     "OECD": 0.56885526249792,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 0.83
    },
    "next_year_more": {
     "inflation (IMF)": 2.4,
@@ -749,14 +779,16 @@
      "actual": 0.73,
      "IMF": 0.78,
      "OECD": 0.657387657697237,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 0.852
     },
     {
      "year": 2025,
      "actual": 0.5,
      "IMF": 0.714,
      "OECD": 0.89621170099241,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {},
@@ -766,7 +798,9 @@
    "score": 0.26,
    "rank": 9,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.54,
+   "n_gdp_ec": 9
   },
   {
    "code": "ESP",
@@ -794,7 +828,8 @@
    "next_year": {
     "IMF": 1.8,
     "OECD": 1.66990175811124,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 2.0
    },
    "next_year_more": {
     "inflation (IMF)": 2.3,
@@ -808,14 +843,16 @@
      "actual": 3.15,
      "IMF": 1.969,
      "OECD": 1.41278924365569,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.661
     },
     {
      "year": 2025,
      "actual": 2.8,
      "IMF": 2.082,
      "OECD": 2.27896628643913,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -837,7 +874,9 @@
    "score": -0.23,
    "rank": 21,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": -0.51,
+   "n_gdp_ec": 9
   },
   {
    "code": "NLD",
@@ -865,7 +904,8 @@
    "next_year": {
     "IMF": 1.4,
     "OECD": 1.43891622786325,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 1.7
    },
    "next_year_more": {
     "inflation (IMF)": 2.4,
@@ -879,14 +919,16 @@
      "actual": 0.98,
      "IMF": 1.228,
      "OECD": 0.522142078112517,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.091
     },
     {
      "year": 2025,
      "actual": 1.9,
      "IMF": 1.296,
      "OECD": 1.64391995139181,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -900,7 +942,9 @@
    "score": -0.31,
    "rank": 22,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.12,
+   "n_gdp_ec": 9
   },
   {
    "code": "CHE",
@@ -928,7 +972,8 @@
    "next_year": {
     "IMF": 1.3,
     "OECD": 1.51554691011447,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 1.54
    },
    "next_year_more": {
     "inflation (IMF)": 0.5,
@@ -942,14 +987,16 @@
      "actual": 1.27,
      "IMF": 1.8,
      "OECD": 0.892460975875651,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.351
     },
     {
      "year": 2025,
      "actual": 1.3,
      "IMF": 1.391,
      "OECD": 1.52555566139942,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -971,7 +1018,9 @@
    "score": -0.48,
    "rank": 25,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.3,
+   "n_gdp_ec": 9
   },
   {
    "code": "SWE",
@@ -999,7 +1048,8 @@
    "next_year": {
     "IMF": 1.9,
     "OECD": 2.5437358750964,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 2.25
    },
    "next_year_more": {
     "inflation (IMF)": 1.8,
@@ -1013,14 +1063,16 @@
      "actual": 0.97,
      "IMF": 1.012,
      "OECD": 0.857198990656214,
-     "World Bank": null
+     "World Bank": null,
+     "EC": -0.245
     },
     {
      "year": 2025,
      "actual": 1.5,
      "IMF": 2.223,
      "OECD": 1.82802232259249,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {},
@@ -1030,7 +1082,9 @@
    "score": 0.27,
    "rank": 8,
    "story": "priced the miss",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.01,
+   "n_gdp_ec": 9
   },
   {
    "code": "JPN",
@@ -1058,7 +1112,8 @@
    "next_year": {
     "IMF": 0.6,
     "OECD": 0.753396536868621,
-    "World Bank": 0.9
+    "World Bank": 0.9,
+    "EC": 0.74
    },
    "next_year_more": {
     "inflation (IMF)": 2.3,
@@ -1072,14 +1127,16 @@
      "actual": 0.08,
      "IMF": 1.019,
      "OECD": 1.03836277003364,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 0.77
     },
     {
      "year": 2025,
      "actual": 1.2,
      "IMF": 1.007,
      "OECD": 1.46337204318581,
-     "World Bank": 1.0
+     "World Bank": 1.0,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1101,7 +1158,9 @@
    "score": 0.99,
    "rank": 2,
    "story": "ignored a miss",
-   "call": "Looks overpriced"
+   "call": "Looks overpriced",
+   "rosy_gdp_1y_ec": 0.17,
+   "n_gdp_ec": 9
   },
   {
    "code": "AUS",
@@ -1129,7 +1188,8 @@
    "next_year": {
     "IMF": 1.7,
     "OECD": 1.84413836327273,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 2.0
    },
    "next_year_more": {
     "inflation (IMF)": 3.2,
@@ -1143,14 +1203,16 @@
      "actual": 1.04,
      "IMF": 1.698,
      "OECD": 1.35838344316639,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 1.4
     },
     {
      "year": 2025,
      "actual": 2,
      "IMF": 2.045,
      "OECD": 1.89444688433399,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1172,7 +1234,9 @@
    "score": -0.04,
    "rank": 17,
    "story": "priced the miss",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.3,
+   "n_gdp_ec": 9
   },
   {
    "code": "KOR",
@@ -1200,7 +1264,8 @@
    "next_year": {
     "IMF": 2.1,
     "OECD": 1.94194557395251,
-    "World Bank": null
+    "World Bank": null,
+    "EC": 2.0
    },
    "next_year_more": {
     "inflation (IMF)": 1.9,
@@ -1214,14 +1279,16 @@
      "actual": 2.02,
      "IMF": 2.439,
      "OECD": 2.25552398622832,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 2.2
     },
     {
      "year": 2025,
      "actual": 1,
      "IMF": 2.337,
      "OECD": 2.10685088535134,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1243,7 +1310,9 @@
    "score": 0.67,
    "rank": 4,
    "story": "ignored a miss",
-   "call": "Looks overpriced"
+   "call": "Looks overpriced",
+   "rosy_gdp_1y_ec": 0.39,
+   "n_gdp_ec": 9
   },
   {
    "code": "CHN",
@@ -1285,14 +1354,16 @@
      "actual": 5.0,
      "IMF": 4.481,
      "OECD": 4.69829408051274,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 5,
      "IMF": 4.086,
      "OECD": 4.68373312828655,
-     "World Bank": 4.0999999
+     "World Bank": 4.0999999,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1356,14 +1427,16 @@
      "actual": 2.54,
      "IMF": 3.133,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 3.5,
      "IMF": 2.726,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1427,14 +1500,16 @@
      "actual": 6.46,
      "IMF": 6.331,
      "OECD": 6.06031768144368,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 7.6,
      "IMF": 6.458,
      "OECD": 6.9229253765164,
-     "World Bank": 6.6999998
+     "World Bank": 6.6999998,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1498,14 +1573,16 @@
      "actual": 4.39,
      "IMF": 2.115,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 5,
      "IMF": 2.3,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1569,14 +1646,16 @@
      "actual": 5.03,
      "IMF": 5.06,
      "OECD": 5.18512226830885,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 5.1,
      "IMF": 5.055,
      "OECD": 5.2220932828445,
-     "World Bank": 5.0999999
+     "World Bank": 5.0999999,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1640,14 +1719,16 @@
      "actual": 5.11,
      "IMF": 4.529,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 5.2,
      "IMF": 4.395,
      "OECD": null,
-     "World Bank": 4.4000001
+     "World Bank": 4.4000001,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1711,14 +1792,16 @@
      "actual": 2.53,
      "IMF": 3.597,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 2.4,
      "IMF": 2.9,
      "OECD": null,
-     "World Bank": 2.8
+     "World Bank": 2.8,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1782,14 +1865,16 @@
      "actual": 5.69,
      "IMF": 5.807,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 4.4,
      "IMF": 6.177,
      "OECD": null,
-     "World Bank": 5.9000001
+     "World Bank": 5.9000001,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1853,14 +1938,16 @@
      "actual": 7.09,
      "IMF": 6.852,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 8,
      "IMF": 6.5,
      "OECD": null,
-     "World Bank": 6.0
+     "World Bank": 6.0,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1924,14 +2011,16 @@
      "actual": 3.4,
      "IMF": 1.486,
      "OECD": 1.79862033265893,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 2.3,
      "IMF": 2.123,
      "OECD": 2.32936451538644,
-     "World Bank": 2.2
+     "World Bank": 2.2,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -1981,7 +2070,8 @@
    "next_year": {
     "IMF": 2.2,
     "OECD": 1.79444525774765,
-    "World Bank": 1.7
+    "World Bank": 1.7,
+    "EC": 1.7
    },
    "next_year_more": {
     "inflation (IMF)": 3.4,
@@ -1995,14 +2085,16 @@
      "actual": 1.45,
      "IMF": 1.566,
      "OECD": 2.53037648519068,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 2.1
     },
     {
      "year": 2025,
      "actual": 0.6,
      "IMF": 1.438,
      "OECD": 1.2494830394877,
-     "World Bank": 2.0999999
+     "World Bank": 2.0999999,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -2021,7 +2113,9 @@
    "score": -0.03,
    "rank": 16,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": 0.69,
+   "n_gdp_ec": 9
   },
   {
    "code": "CHL",
@@ -2063,14 +2157,16 @@
      "actual": 2.64,
      "IMF": 1.894,
      "OECD": 1.84365886332012,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 2.3,
      "IMF": 2.534,
      "OECD": 2.33204504733953,
-     "World Bank": 2.2
+     "World Bank": 2.2,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -2134,14 +2230,16 @@
      "actual": 0.58,
      "IMF": 1.824,
      "OECD": 1.04095669592897,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 1.1,
      "IMF": 1.213,
      "OECD": 1.52337474308725,
-     "World Bank": 1.3
+     "World Bank": 1.3,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -2205,14 +2303,16 @@
      "actual": 1.31,
      "IMF": 3.149,
      "OECD": null,
-     "World Bank": null
+     "World Bank": null,
+     "EC": null
     },
     {
      "year": 2025,
      "actual": 4.5,
      "IMF": 5.968,
      "OECD": null,
-     "World Bank": 5.9000001
+     "World Bank": 5.9000001,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -2262,7 +2362,8 @@
    "next_year": {
     "IMF": 3.5,
     "OECD": 3.80086529933926,
-    "World Bank": 3.7
+    "World Bank": 3.7,
+    "EC": 3.96
    },
    "next_year_more": {
     "inflation (IMF)": 21.4,
@@ -2276,14 +2377,16 @@
      "actual": 3.18,
      "IMF": 3.6,
      "OECD": 2.9024640525405,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 3.486
     },
     {
      "year": 2025,
      "actual": 3.6,
      "IMF": 3.187,
      "OECD": 2.59140909967398,
-     "World Bank": 3.5999999
+     "World Bank": 3.5999999,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -2305,7 +2408,9 @@
    "score": -1.14,
    "rank": 29,
    "story": "ignored a beat",
-   "call": "Looks underpriced"
+   "call": "Looks underpriced",
+   "rosy_gdp_1y_ec": -0.78,
+   "n_gdp_ec": 9
   },
   {
    "code": "POL",
@@ -2333,7 +2438,8 @@
    "next_year": {
     "IMF": 2.4,
     "OECD": 2.62210032998111,
-    "World Bank": 2.6
+    "World Bank": 2.6,
+    "EC": 2.77
    },
    "next_year_more": {
     "inflation (IMF)": 3.3,
@@ -2347,14 +2453,16 @@
      "actual": 2.85,
      "IMF": 2.444,
      "OECD": 2.57744178898148,
-     "World Bank": null
+     "World Bank": null,
+     "EC": 2.739
     },
     {
      "year": 2025,
      "actual": 3.6,
      "IMF": 3.476,
      "OECD": 3.3634172777501,
-     "World Bank": 3.4000001
+     "World Bank": 3.4000001,
+     "EC": null
     }
    ],
    "mcap_gdp": {
@@ -2376,7 +2484,9 @@
    "score": -0.15,
    "rank": 19,
    "story": "delivered as forecast",
-   "call": "No strong signal"
+   "call": "No strong signal",
+   "rosy_gdp_1y_ec": -0.42,
+   "n_gdp_ec": 9
   }
  ],
  "signals": {
@@ -5293,19 +5403,19 @@
       "POL": 0.09
      },
      "rosy_gdp": {
-      "USA": -0.02,
-      "CAN": 0.19,
-      "GBR": 0.29,
-      "DEU": 0.37,
-      "FRA": 0.2,
+      "USA": -0.08,
+      "CAN": 0.16,
+      "GBR": 0.11,
+      "DEU": 0.31,
+      "FRA": 0.15,
       "ITA": 0.36,
-      "ESP": -0.12,
+      "ESP": -0.2,
       "NLD": 0.09,
-      "CHE": 0.05,
-      "SWE": 0.19,
-      "JPN": 0.22,
-      "AUS": 0.18,
-      "KOR": 0.4,
+      "CHE": 0.1,
+      "SWE": 0.13,
+      "JPN": 0.2,
+      "AUS": 0.19,
+      "KOR": 0.35,
       "CHN": -0.06,
       "HKG": 1.07,
       "IND": -0.01,
@@ -5316,12 +5426,12 @@
       "PHL": 0.04,
       "VNM": -0.26,
       "BRA": 0.2,
-      "MEX": 0.44,
+      "MEX": 0.45,
       "CHL": 0.16,
       "ZAF": 0.37,
       "SAU": 0.23,
-      "TUR": -0.17,
-      "POL": -0.05
+      "TUR": -0.26,
+      "POL": -0.11
      },
      "mcap": {
       "USA": 0.391,
@@ -5512,35 +5622,35 @@
       "POL": 0.086
      },
      "rosy_gdp": {
-      "USA": -0.676,
-      "CAN": 0.131,
-      "GBR": 0.516,
-      "DEU": 0.824,
-      "FRA": 0.17,
-      "ITA": 0.785,
-      "ESP": -1.061,
-      "NLD": -0.253,
-      "CHE": -0.407,
-      "SWE": 0.131,
-      "JPN": 0.247,
-      "AUS": 0.093,
-      "KOR": 0.939,
-      "CHN": -0.83,
-      "HKG": 3.516,
-      "IND": -0.638,
-      "SGP": -1.446,
-      "IDN": -0.176,
-      "MYS": -1.1,
-      "THA": 0.939,
-      "PHL": -0.446,
-      "VNM": -1.6,
-      "BRA": 0.17,
-      "MEX": 1.093,
-      "CHL": 0.016,
-      "ZAF": 0.824,
-      "SAU": 0.285,
-      "TUR": -1.253,
-      "POL": -0.792
+      "USA": -0.801,
+      "CAN": 0.103,
+      "GBR": -0.086,
+      "DEU": 0.667,
+      "FRA": 0.065,
+      "ITA": 0.855,
+      "ESP": -1.252,
+      "NLD": -0.161,
+      "CHE": -0.123,
+      "SWE": -0.01,
+      "JPN": 0.253,
+      "AUS": 0.215,
+      "KOR": 0.818,
+      "CHN": -0.725,
+      "HKG": 3.527,
+      "IND": -0.537,
+      "SGP": -1.328,
+      "IDN": -0.086,
+      "MYS": -0.989,
+      "THA": 1.006,
+      "PHL": -0.349,
+      "VNM": -1.478,
+      "BRA": 0.253,
+      "MEX": 1.194,
+      "CHL": 0.103,
+      "ZAF": 0.893,
+      "SAU": 0.366,
+      "TUR": -1.478,
+      "POL": -0.914
      },
      "mcap": {
       "USA": 0.848,
@@ -8612,11 +8722,17 @@
      "usual_error": -0.06,
      "n": 1,
      "corrected": 2.16
+    },
+    "EC": {
+     "forecast": 2.15,
+     "usual_error": -0.25,
+     "n": 9,
+     "corrected": 2.4
     }
    },
-   "consensus": 2.0,
-   "corrected": 2.02,
-   "disappointment": -0.02
+   "consensus": 2.04,
+   "corrected": 2.12,
+   "disappointment": -0.08
   },
   "CAN": {
    "by": {
@@ -8631,11 +8747,17 @@
      "usual_error": -0.08,
      "n": 2,
      "corrected": 1.76
+    },
+    "EC": {
+     "forecast": 1.5,
+     "usual_error": 0.09,
+     "n": 9,
+     "corrected": 1.41
     }
    },
-   "consensus": 1.79,
-   "corrected": 1.6,
-   "disappointment": 0.19
+   "consensus": 1.7,
+   "corrected": 1.54,
+   "disappointment": 0.16
   },
   "GBR": {
    "by": {
@@ -8650,11 +8772,17 @@
      "usual_error": -0.01,
      "n": 2,
      "corrected": 1.06
+    },
+    "EC": {
+     "forecast": 1.36,
+     "usual_error": -0.24,
+     "n": 9,
+     "corrected": 1.6
     }
    },
-   "consensus": 1.18,
-   "corrected": 0.89,
-   "disappointment": 0.29
+   "consensus": 1.24,
+   "corrected": 1.13,
+   "disappointment": 0.11
   },
   "DEU": {
    "by": {
@@ -8669,11 +8797,17 @@
      "usual_error": 0.23,
      "n": 2,
      "corrected": 0.89
+    },
+    "EC": {
+     "forecast": 1.24,
+     "usual_error": 0.18,
+     "n": 9,
+     "corrected": 1.06
     }
    },
-   "consensus": 1.16,
-   "corrected": 0.79,
-   "disappointment": 0.37
+   "consensus": 1.19,
+   "corrected": 0.88,
+   "disappointment": 0.31
   },
   "FRA": {
    "by": {
@@ -8688,11 +8822,17 @@
      "usual_error": -0.05,
      "n": 2,
      "corrected": 0.87
+    },
+    "EC": {
+     "forecast": 1.09,
+     "usual_error": 0.05,
+     "n": 9,
+     "corrected": 1.04
     }
    },
-   "consensus": 0.86,
-   "corrected": 0.66,
-   "disappointment": 0.2
+   "consensus": 0.94,
+   "corrected": 0.79,
+   "disappointment": 0.15
   },
   "ITA": {
    "by": {
@@ -8707,10 +8847,16 @@
      "usual_error": 0.05,
      "n": 2,
      "corrected": 0.51
+    },
+    "EC": {
+     "forecast": 0.83,
+     "usual_error": 0.37,
+     "n": 9,
+     "corrected": 0.46
     }
    },
-   "consensus": 0.53,
-   "corrected": 0.17,
+   "consensus": 0.63,
+   "corrected": 0.27,
    "disappointment": 0.36
   },
   "ESP": {
@@ -8726,11 +8872,17 @@
      "usual_error": -0.38,
      "n": 2,
      "corrected": 2.05
+    },
+    "EC": {
+     "forecast": 2.0,
+     "usual_error": -0.35,
+     "n": 9,
+     "corrected": 2.35
     }
    },
-   "consensus": 1.73,
-   "corrected": 1.86,
-   "disappointment": -0.12
+   "consensus": 1.82,
+   "corrected": 2.02,
+   "disappointment": -0.2
   },
   "NLD": {
    "by": {
@@ -8745,10 +8897,16 @@
      "usual_error": -0.12,
      "n": 2,
      "corrected": 1.56
+    },
+    "EC": {
+     "forecast": 1.7,
+     "usual_error": 0.08,
+     "n": 9,
+     "corrected": 1.62
     }
    },
-   "consensus": 1.42,
-   "corrected": 1.33,
+   "consensus": 1.51,
+   "corrected": 1.42,
    "disappointment": 0.09
   },
   "CHE": {
@@ -8764,11 +8922,17 @@
      "usual_error": -0.03,
      "n": 2,
      "corrected": 1.54
+    },
+    "EC": {
+     "forecast": 1.54,
+     "usual_error": 0.21,
+     "n": 9,
+     "corrected": 1.33
     }
    },
-   "consensus": 1.41,
-   "corrected": 1.36,
-   "disappointment": 0.05
+   "consensus": 1.45,
+   "corrected": 1.35,
+   "disappointment": 0.1
   },
   "SWE": {
    "by": {
@@ -8783,11 +8947,17 @@
      "usual_error": 0.04,
      "n": 2,
      "corrected": 2.51
+    },
+    "EC": {
+     "forecast": 2.25,
+     "usual_error": 0.01,
+     "n": 9,
+     "corrected": 2.24
     }
    },
-   "consensus": 2.22,
-   "corrected": 2.02,
-   "disappointment": 0.19
+   "consensus": 2.23,
+   "corrected": 2.1,
+   "disappointment": 0.13
   },
   "JPN": {
    "by": {
@@ -8808,11 +8978,17 @@
      "usual_error": -0.04,
      "n": 1,
      "corrected": 0.94
+    },
+    "EC": {
+     "forecast": 0.74,
+     "usual_error": 0.12,
+     "n": 9,
+     "corrected": 0.62
     }
    },
    "consensus": 0.75,
-   "corrected": 0.53,
-   "disappointment": 0.22
+   "corrected": 0.55,
+   "disappointment": 0.2
   },
   "AUS": {
    "by": {
@@ -8827,11 +9003,17 @@
      "usual_error": 0.04,
      "n": 2,
      "corrected": 1.81
+    },
+    "EC": {
+     "forecast": 2.0,
+     "usual_error": 0.21,
+     "n": 9,
+     "corrected": 1.79
     }
    },
-   "consensus": 1.77,
-   "corrected": 1.59,
-   "disappointment": 0.18
+   "consensus": 1.85,
+   "corrected": 1.66,
+   "disappointment": 0.19
   },
   "KOR": {
    "by": {
@@ -8846,11 +9028,17 @@
      "usual_error": 0.22,
      "n": 2,
      "corrected": 1.72
+    },
+    "EC": {
+     "forecast": 2.0,
+     "usual_error": 0.27,
+     "n": 9,
+     "corrected": 1.73
     }
    },
-   "consensus": 2.02,
-   "corrected": 1.62,
-   "disappointment": 0.4
+   "consensus": 2.01,
+   "corrected": 1.66,
+   "disappointment": 0.35
   },
   "CHN": {
    "by": {
@@ -9079,11 +9267,17 @@
      "usual_error": 0.3,
      "n": 1,
      "corrected": 1.4
+    },
+    "EC": {
+     "forecast": 1.7,
+     "usual_error": 0.48,
+     "n": 9,
+     "corrected": 1.22
     }
    },
-   "consensus": 1.9,
-   "corrected": 1.45,
-   "disappointment": 0.44
+   "consensus": 1.85,
+   "corrected": 1.4,
+   "disappointment": 0.45
   },
   "CHL": {
    "by": {
@@ -9179,11 +9373,17 @@
      "usual_error": -0.0,
      "n": 1,
      "corrected": 3.7
+    },
+    "EC": {
+     "forecast": 3.96,
+     "usual_error": -0.54,
+     "n": 9,
+     "corrected": 4.5
     }
    },
-   "consensus": 3.67,
-   "corrected": 3.84,
-   "disappointment": -0.17
+   "consensus": 3.74,
+   "corrected": 4.0,
+   "disappointment": -0.26
   },
   "POL": {
    "by": {
@@ -9204,11 +9404,17 @@
      "usual_error": -0.04,
      "n": 1,
      "corrected": 2.64
+    },
+    "EC": {
+     "forecast": 2.77,
+     "usual_error": -0.29,
+     "n": 9,
+     "corrected": 3.06
     }
    },
-   "consensus": 2.54,
-   "corrected": 2.59,
-   "disappointment": -0.05
+   "consensus": 2.6,
+   "corrected": 2.71,
+   "disappointment": -0.11
   }
  },
  "h_profile": {
@@ -9444,5 +9650,23 @@
    "4": 0.37,
    "5": 0.31
   }
- }
+ },
+ "h2h_long": {
+  "n": 128,
+  "markets": 16,
+  "first": 2013,
+  "last": 2024,
+  "IMF": {
+   "avg_miss": 0.64,
+   "bias": -0.01
+  },
+  "EC": {
+   "avg_miss": 0.69,
+   "bias": -0.04
+  },
+  "ec_closer": 56
+ },
+ "ec_release": "2025-11-15",
+ "ec_releases": 28,
+ "n_forecasts_ec": 51848
 }

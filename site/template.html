@@ -147,7 +147,7 @@ a{color:var(--accent)}
         <button data-f="focus" aria-pressed="false">India and Singapore</button>
       </div>
     </div>
-    <p class="small"><span class="pill rich">pushes toward overpriced</span> <span class="pill cheap">pushes toward underpriced</span> <span class="muted">Click a market for forecasts from the IMF, OECD and World Bank, market cap / GDP, and each forecaster's track record.</span></p>
+    <p class="small"><span class="pill rich">pushes toward overpriced</span> <span class="pill cheap">pushes toward underpriced</span> <span class="muted">Click a market for forecasts from the IMF, OECD, World Bank and European Commission, market cap / GDP, and each forecaster's track record.</span></p>
     <div class="scroll"><table id="tbl"></table></div>
   </section>
 
@@ -163,7 +163,7 @@ a{color:var(--accent)}
     <h2>How forecasts go wrong</h2>
     <div class="two">
       <div class="chart" id="hchart"><h3 style="margin-bottom:6px">The further out, the rosier</h3><p class="note" style="margin-bottom:8px">IMF GDP growth forecast minus what happened, average over 29 markets since 2008 (2020–21 excluded). Positive means too rosy.</p></div>
-      <div class="chart" id="h2hbox"><h3 style="margin-bottom:6px">Which forecaster to trust next year</h3><p class="note" style="margin-bottom:8px">One-year-ahead GDP calls for 2024 and 2025, average miss in percentage points. Each covers different countries; the per-country view is in the table.</p><div class="facts" id="h2h"></div></div>
+      <div class="chart" id="h2hbox"><h3 style="margin-bottom:6px">Which forecaster to trust next year</h3><p class="note" style="margin-bottom:8px"><span id="h2hlong"></span> One-year-ahead GDP calls for 2024 and 2025, average miss in percentage points (EC: 2024 only). Each covers different countries; the per-country view is in the table.</p><div class="facts" id="h2h"></div></div>
     </div>
     <p class="note" id="sgnote"></p>
   </section>
@@ -171,9 +171,9 @@ a{color:var(--accent)}
   <details>
     <summary>Method, sources and limits</summary>
     <ul>
-      <li><b>Forecasts.</b> IMF World Economic Outlook, every release from April 2008 to April 2026 (GDP growth, inflation, government balance). OECD Economic Outlook, November 2023 to June 2026 (adds short and long interest rates). World Bank Global Economic Prospects, June 2024 and June 2026. The OECD and World Bank do not forecast Singapore or Hong Kong, so those two rely on the IMF.</li>
+      <li><b>Forecasts.</b> IMF World Economic Outlook, every release from April 2008 to April 2026 (GDP growth, inflation, government balance). OECD Economic Outlook, November 2023 to June 2026 (adds short and long interest rates). World Bank Global Economic Prospects, June 2024 and June 2026. European Commission (AMECO forecast archive), 28 releases from 2011 to November 2025, for the 16 markets it covers (the US, Japan, Korea, Australia, Canada, Mexico, Turkey, Switzerland and EU members). The OECD, World Bank and EC do not forecast Singapore or Hong Kong, so those two rely on the IMF.</li>
       <li><b>What happened.</b> The first figure the IMF published after each year ended, so later revisions do not rewrite history. 2020 and 2021 are left out of forecast errors because no one could foresee the pandemic.</li>
-      <li><b>Correcting forecasts.</b> Each forecaster's next-year number is adjusted by its own average past error for that country, trusted in proportion to how much history there is (n ÷ (n + 4)). The IMF has about 15 years per country; the OECD 2 and the World Bank 1, so their corrections are small.</li>
+      <li><b>Correcting forecasts.</b> Each forecaster's next-year number is adjusted by its own average past error for that country, trusted in proportion to how much history there is (n ÷ (n + 4)). The IMF has about 15 years per country, the European Commission about 9, the OECD 2 and the World Bank 1, so the last two get small corrections.</li>
       <li><b>Market.</b> World Bank / S&amp;P equity index annual change in USD against IMF nominal GDP in USD; and World Bank market cap as % of GDP against its own 10-year median. Market cap / GDP points that jump over 50% in a year while the index moved under 25% are treated as data breaks and skipped: <span id="flags"></span>.</li>
       <li><b>Scoring.</b> Each signal is ranked against the other markets (z-score). A market's score is the average of the signals you switch on. Roughly the top and bottom fifth are called over- and under-priced.</li>
       <li><b>Track record.</b> The same calculation at every April since 2012, using only what was known then, held for 3 years (or 1 year for the next-year view), USD index returns.</li>
@@ -322,7 +322,7 @@ function detail(x, ncol) {
       <p class="note">IMF 2029–31: <b class="num">${f1(m.imf_gdp_35)}%</b> a year; corrected: <b class="num">${f1(m.adj_gdp_35)}%</b>.</p></div>
     <div><h3>Market cap / GDP</h3><div class="mw"><table class="mini"><thead><tr>${mcy}</tr></thead><tbody><tr>${mc.join("")}</tr></tbody></table></div>
       <p class="note">World Bank. ${flags.size ? "* Data break (jump not matched by the index), skipped in the score." : ""} ${m.h2h.length ? "" : ""}</p>
-      ${m.h2h.length ? `<h3 style="margin-top:6px">Who called ${esc(m.name)} best</h3><div class="mw"><table class="mini"><thead><tr><th>Year</th><th class="r">Actual</th><th class="r">IMF</th><th class="r">OECD</th><th class="r">WB</th></tr></thead><tbody>${m.h2h.map(r => `<tr><td class="num">${r.year}</td><td class="r num">${f1(r.actual)}</td>${["IMF", "OECD", "World Bank"].map(k => `<td class="r num">${r[k] == null ? "–" : f1(r[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}</div>
+      ${m.h2h.length ? `<h3 style="margin-top:6px">Who called ${esc(m.name)} best</h3><div class="mw"><table class="mini"><thead><tr><th>Year</th><th class="r">Actual</th><th class="r">IMF</th><th class="r">OECD</th><th class="r">WB</th><th class="r">EC</th></tr></thead><tbody>${m.h2h.map(r => `<tr><td class="num">${r.year}</td><td class="r num">${f1(r.actual)}</td>${["IMF", "OECD", "World Bank", "EC"].map(k => `<td class="r num">${r[k] == null ? "–" : f1(r[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}</div>
   </div></td></tr>`;
 }
 
@@ -403,6 +403,7 @@ sigs(); render();
   $("hchart").insertAdjacentHTML("beforeend", s + `</svg>`);
   const sgp = D.h_profile.SGP;
   $("sgnote").innerHTML = `For the current year the IMF is about right or slightly cautious (${pp(P[0], 2)} pts); five years out it is ${pp(P[5], 2)} pts too rosy. <b>Singapore</b> is the clearest case of the reverse near term: it beat the IMF's current-year call by ${pp(-sgp[0], 1)} pts on average, yet the IMF's 3–5 year calls for it ran about ${pp((sgp[3] + sgp[4] + sgp[5]) / 3, 1)} pts too high.`;
+  if (D.h2h_long) { const L = D.h2h_long; $("h2hlong").innerHTML = `<b>Over ten years, the IMF and the European Commission are about equally accurate.</b> On the same ${L.n} calls (${L.markets} markets, ${L.first}–${L.last}, autumn forecast for the next year), the IMF missed by ${L.IMF.avg_miss.toFixed(2)} pts on average and the EC by ${L.EC.avg_miss.toFixed(2)}; the EC was closer ${L.ec_closer} times out of ${L.n}. The OECD's lead below rests on two years only.`; }
   $("h2h").innerHTML = Object.entries(D.h2h_summary).map(([k, v]) => `<div class="fact"><b>${v.avg_miss.toFixed(2)}</b><span class="small muted">${k} · ${v.n} calls</span></div>`).join("");
 })();
 </script>
